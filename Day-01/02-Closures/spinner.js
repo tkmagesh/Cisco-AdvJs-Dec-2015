@@ -17,3 +17,18 @@ spinner.down(); // => 0
 spinner.down(); // => -1
 
 */
+
+function getSpinner(){
+    var counter = 0;
+    function up(){
+        return ++counter;
+    }
+    function down(){
+        return --counter;
+    }
+    return {
+        up : up,
+        down : down
+    }
+}
+
