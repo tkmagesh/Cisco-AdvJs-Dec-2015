@@ -1,0 +1,14 @@
+<ol>
+           {{#each list}}
+                <li>
+                    {{#if isCompleted}}
+                        <span class="completed">
+                    {{else}}
+                        <span>
+                    {{/if}}
+                         {{name}}
+                        </span>
+                </li>
+           {{/each}}
+
+       </ol>

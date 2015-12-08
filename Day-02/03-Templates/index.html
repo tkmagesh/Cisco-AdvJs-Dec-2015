@@ -34,6 +34,14 @@
 
     </script>
     <script>
+    function Task(name , isCompleted){
+        this.name = name;
+        this.isCompleted = isCompleted;
+    }
+    Task.prototype.toggleCompletion = function(){
+        this.isCompleted = !this.isCompleted
+    };
+
     $(document).ready(function(){
         var templateHTML = $("#taskTemplate").html();
         var templateFn = Handlebars.compile(templateHTML);
@@ -42,13 +50,9 @@
             list : []
         };
         $("#btnAddTask").click(function(){
-           var task = {
-               name : $("#txtTask").val(),
-               isCompleted : $("#chkCompleted").prop("checked")
-           };
+           var task = new Task($("#txtTask").val(), $("#chkCompleted").prop("checked"))
            data.list.push(task);
-            var taskHtml = templateFn(data);
-            $("#list").html(taskHtml);
+           render();
             /*var isCompleted = $("#chkCompleted").prop("checked");
             var newListItem = $("<li></li>");
             newListItem.html(taskName);
@@ -58,6 +62,16 @@
             newListItem.click(onTaskItemClick);
             newListItem.appendTo("#olTaskList");*/
         });
+        function render(){
+            var taskHtml = templateFn(data);
+            $("#list").html(taskHtml);
+        }
+        $("#btnRemoveCompleted").click(function(){
+            for(var i=data.list.length-1; i>=0; i--)
+                if (data.list[i].isCompleted)
+                    data.list.splice(i,1);
+            render();
+        })
         function onTaskItemClick(){
             $(this).toggleClass("completed");
         }
