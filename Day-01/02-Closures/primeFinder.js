@@ -29,10 +29,11 @@ function getEvenOddFinder(){
 
 function memoize(fn){
     var cache = {};
-    return function(n){
-        if (typeof cache[n] === 'undefined')
-            cache[n] = fn(n);
-        return cache[n];
+    return function(){
+        var key = JSON.stringify(arguments);
+        if (!cache.hasOwnProperty(key))
+            cache[key] = fn.apply(this,arguments);
+        return cache[key];
     }
 }
 
