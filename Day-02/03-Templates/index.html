@@ -37,7 +37,7 @@
     $(document).ready(function(){
         var templateHTML = $("#taskTemplate").html();
         var templateFn = Handlebars.compile(templateHTML);
-        $("#olTaskList").on("click", "li", onTaskItemClick);
+        //$("#list").on("click", "span", onTaskItemClick);
         var data = {
             list : []
         };
@@ -61,9 +61,7 @@
         function onTaskItemClick(){
             $(this).toggleClass("completed");
         }
-        function generateList(){
 
-        }
     });
 
     </script>
@@ -76,6 +74,7 @@
     <input type="checkbox" name="" id="chkCompleted" value="completed">
     <label for="">Completed ?</label>
     <input type="button" value="Add Task" id="btnAddTask">
+    <input type="button" value="Remove Completed" id="btnRemoveCompleted">
     <div id="list"></div>
 </body>
 </html>
