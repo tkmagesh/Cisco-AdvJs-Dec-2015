@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <style>
+        .completed{
+            color : red;
+            text-decoration: line-through;
+            font-style: italic;
+            font-weight: bold;
+        }
+        li{
+            cursor: pointer;
+        }
+    </style>
+    <script src="jquery-2.1.4.js"></script>
+    <script src="handlebars-v4.0.5.js"></script>
+    <script type="text/x-handlebars-template" id="taskTemplate">
+       <ol>
+           {{#each list}}
+                <li>
+                    {{#if isCompleted}}
+                        <span class="completed">
+                    {{else}}
+                        <span>
+                    {{/if}}
+                         {{name}}
+                        </span>
+                </li>
+           {{/each}}
+
+       </ol>
+
+    </script>
+    <script>
+    $(document).ready(function(){
+        var templateHTML = $("#taskTemplate").html();
+        var templateFn = Handlebars.compile(templateHTML);
+        $("#olTaskList").on("click", "li", onTaskItemClick);
+        var data = {
+            list : []
+        };
+        $("#btnAddTask").click(function(){
+           var task = {
+               name : $("#txtTask").val(),
+               isCompleted : $("#chkCompleted").prop("checked")
+           };
+           data.list.push(task);
+            var taskHtml = templateFn(data);
+            $("#list").html(taskHtml);
+            /*var isCompleted = $("#chkCompleted").prop("checked");
+            var newListItem = $("<li></li>");
+            newListItem.html(taskName);
+            if (isCompleted){
+                newListItem.addClass("completed");
+            }
+            newListItem.click(onTaskItemClick);
+            newListItem.appendTo("#olTaskList");*/
+        });
+        function onTaskItemClick(){
+            $(this).toggleClass("completed");
+        }
+        function generateList(){
+
+        }
+    });
+
+    </script>
+</head>
+<body>
+    <h1>Task Manager</h1>
+    <hr>
+    <label for="">Task :</label>
+    <input type="text" name="" id="txtTask">
+    <input type="checkbox" name="" id="chkCompleted" value="completed">
+    <label for="">Completed ?</label>
+    <input type="button" value="Add Task" id="btnAddTask">
+    <div id="list"></div>
+</body>
+</html>
